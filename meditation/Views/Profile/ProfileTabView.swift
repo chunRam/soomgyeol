@@ -6,8 +6,7 @@ struct ProfileTabView: View {
     @State private var userEmail: String = Auth.auth().currentUser?.email ?? "Unknown"
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 32) {
+        VStack(spacing: 32) {
                 // 사용자 이메일 표시
                 VStack(spacing: 4) {
                     Text("Logged in as")
@@ -43,10 +42,9 @@ struct ProfileTabView: View {
                 }
 
                 Spacer()
-            }
-            .padding(.top, 60)
-            .navigationTitle("프로필")
         }
+        .padding(.top, 60)
+        .navigationTitle("프로필")
     }
 
     private func logout() {
