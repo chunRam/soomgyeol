@@ -12,31 +12,33 @@ struct MeditationStartView: View {
     @State private var audioPlayer: AVAudioPlayer?
 
     var body: some View {
-        VStack(spacing: 24) {
-            Text("명상 중...")
-                .font(.title)
+        ZStack {
+            Color(mood.colorName)
+                .ignoresSafeArea()
+
+            VStack(spacing: 24) {
+                Text("명상 중...")
+                    .font(.title)
+                    .foregroundColor(.white)
+                Text("감정: \(mood.name)")
+                    .foregroundColor(.white.opacity(0.8))
+
+                Text("\(remainingSeconds / 60)분 \(remainingSeconds % 60)초")
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundColor(.white)
+
+                Button("명상 종료") {
+                    endMeditation()
+                    onFinish?()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.white.opacity(0.2))
                 .foregroundColor(.white)
-
-            Text("감정: \(mood.name)")
-                .foregroundColor(.white.opacity(0.8))
-
-            Text("\(remainingSeconds / 60)분 \(remainingSeconds % 60)초")
-                .font(.system(size: 32, weight: .bold))
-                .foregroundColor(.white)
-
-            Button("명상 종료") {
-                endMeditation()
-                onFinish?()
+                .cornerRadius(16)
             }
             .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.white.opacity(0.2))
-            .foregroundColor(.white)
-            .cornerRadius(16)
         }
-        .padding()
-        .background(Color(mood.colorName)) // ✅ 수정: View에서 직접 Color 생성
-        .ignoresSafeArea()
         .onAppear {
             startMeditation()
         }
