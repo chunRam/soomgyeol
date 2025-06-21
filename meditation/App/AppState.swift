@@ -4,6 +4,8 @@ import FirebaseAuth
 class AppState: ObservableObject {
     @Published var path: [Route] = []
     @Published var isLoggedIn: Bool = false
+    /// Currently selected mood color to sync backgrounds across tabs.
+    @Published var currentMoodColor: String? = nil
 
     private var authListenerHandle: AuthStateDidChangeListenerHandle?
 
