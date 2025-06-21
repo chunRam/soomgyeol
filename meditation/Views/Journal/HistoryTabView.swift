@@ -78,7 +78,10 @@ struct HistoryTabView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(mood?.colorName ?? "white").opacity(0.1))
+                        .background(
+                            Color(appState.selectedMoodColor ?? "PastelMint")
+                                .opacity(0.2)
+                        )
                         .cornerRadius(16)
                         .shadow(color: .gray.opacity(0.1), radius: 2, x: 0, y: 2)
                         .padding(.horizontal)
