@@ -12,7 +12,7 @@ class StatsViewModel: ObservableObject {
     private let db = Firestore.firestore()
 
     init() {
-        fetchStats()
+        // Intentionally left blank; fetchStats() should be called explicitly
     }
 
     func fetchStats() {
