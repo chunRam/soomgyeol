@@ -31,13 +31,19 @@ struct LaunchView: View {
                     navigate(.signup)
                 }
 
-                RoundedButton(
-                    title: "게스트 모드로 시작하기",
-                    backgroundColor: .gray.opacity(0.2),
-                    textColor: .primary
-                ) {
+                Button(action: {
                     navigate(.home)
+                }) {
+                    Text("게스트 모드로 시작하기")
+                        .font(.system(size: 16, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        )
                 }
+                .foregroundColor(.primary)
             }
             .padding(.horizontal)
 
