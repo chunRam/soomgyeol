@@ -30,6 +30,14 @@ struct LaunchView: View {
                 ) {
                     navigate(.signup)
                 }
+
+                RoundedButton(
+                    title: "게스트 모드로 시작하기",
+                    backgroundColor: .gray.opacity(0.2),
+                    textColor: .primary
+                ) {
+                    navigate(.home)
+                }
             }
             .padding(.horizontal)
 
