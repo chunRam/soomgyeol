@@ -18,7 +18,7 @@ struct MeditationSetupView: View {
     let mood: Mood
     let navigate: (Route) -> Void
 
-    @State private var duration: Int = 5
+    @State private var duration: Double = 5
     @State private var selectedMusic: MusicOption = MusicOption.all.first!
     /// Tracks whether we are navigating to the meditation screen. Used to avoid
     /// stopping the music after `MeditationStartView` begins playback.
@@ -31,9 +31,9 @@ struct MeditationSetupView: View {
             Spacer()
 
             VStack {
-                Text("명상 시간: \(duration)분")
+                Text("명상 시간: \(Int(duration))분")
                     .font(.title2)
-                Stepper("시간 선택", value: $duration, in: 1...60)
+                Slider(value: $duration, in: 1...60, step: 1)
             }
             .padding()
 
@@ -55,7 +55,7 @@ struct MeditationSetupView: View {
             Button(action: {
                 isNavigatingToMeditation = true
                 AudioPlayerService.shared.stop()
-                navigate(.meditation(duration: duration, mood: mood, music: selectedMusic.id))
+                navigate(.meditation(duration: Int(duration), mood: mood, music: selectedMusic.id))
             }) {
                 Text("명상 시작하기")
                     .frame(maxWidth: .infinity)
