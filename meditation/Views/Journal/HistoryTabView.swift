@@ -4,9 +4,8 @@ struct HistoryTabView: View {
     @StateObject private var viewModel = JournalViewModel()
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(spacing: 16) {
+        ScrollView {
+            LazyVStack(spacing: 16) {
                     ForEach(viewModel.entries) { entry in
                         VStack(alignment: .leading, spacing: 8) {
                             Text("🗓️ \(entry.date.formatted(.dateTime.year().month().day()))")
@@ -34,10 +33,9 @@ struct HistoryTabView: View {
                     }
                 }
                 .padding(.top)
-            }
-            .background(Color("SoftGray").ignoresSafeArea())
-            .navigationTitle("감정 일지")
         }
+        .background(Color("SoftGray").ignoresSafeArea())
+        .navigationTitle("감정 일지")
         .onAppear {
             viewModel.fetchJournals()
         }
