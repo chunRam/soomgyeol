@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HistoryTabView: View {
     @StateObject private var viewModel = JournalViewModel()
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         ScrollView {
@@ -24,6 +25,9 @@ struct HistoryTabView: View {
                         .cornerRadius(16)
                         .shadow(color: .gray.opacity(0.1), radius: 2, x: 0, y: 2)
                         .padding(.horizontal)
+                        .onTapGesture {
+                            appState.navigate(to: .journalEditor(entry: entry))
+                        }
                     }
 
                     if viewModel.entries.isEmpty {

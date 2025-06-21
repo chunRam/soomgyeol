@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct MeditationSetupView: View {
     let mood: Mood
@@ -6,6 +7,7 @@ struct MeditationSetupView: View {
 
     @State private var duration: Int = 5
     @State private var selectedMusic: String = "meditation1"
+    @State private var audioPlayer: AVAudioPlayer?
 
     private let musicOptions = ["meditation1", "meditation2", "meditation3"]
 
@@ -36,6 +38,7 @@ struct MeditationSetupView: View {
             Spacer()
 
             Button(action: {
+                audioPlayer?.stop()
                 navigate(.meditation(duration: duration, mood: mood, music: selectedMusic))
             }) {
                 Text("명상 시작하기")
@@ -49,5 +52,23 @@ struct MeditationSetupView: View {
         }
         .padding()
         .navigationTitle("명상 설정")
+        .onAppear(perform: playMusic)
+        .onChange(of: selectedMusic) { _ in
+            playMusic()
+        }
+        .onDisappear {
+            audioPlayer?.stop()
+        }
+    }
+
+    private func playMusic() {
+        guard let url = Bundle.main.url(forResource: selectedMusic, withExtension: "mp3") else { return }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.numberOfLoops = -1
+            audioPlayer?.play()
+        } catch {
+            print("오디오 재생 실패: \(error.localizedDescription)")
+        }
     }
 }
