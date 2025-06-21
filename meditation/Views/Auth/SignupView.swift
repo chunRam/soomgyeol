@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignupView: View {
     @StateObject private var viewModel = AuthViewModel()
+    @EnvironmentObject var appState: AppState
     let navigate: (Route) -> Void
 
     var body: some View {
@@ -41,7 +42,7 @@ struct SignupView: View {
 
             VStack(spacing: 12) {
                 RoundedButton(title: "회원가입", backgroundColor: .accentColor) {
-                    viewModel.signUp {
+                    viewModel.signUp(appState: appState) {
                         navigate(.home)
                     }
                 }

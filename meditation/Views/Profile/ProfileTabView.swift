@@ -3,21 +3,39 @@ import FirebaseAuth
 
 struct ProfileTabView: View {
     @EnvironmentObject var appState: AppState
-    @State private var userEmail: String = Auth.auth().currentUser?.email ?? "Unknown"
     
     var body: some View {
         VStack(spacing: 24) {
             // 헤더 프로필 이미지와 이메일
             VStack(spacing: 8) {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .scaledToFit()
+                if let url = appState.user?.profileImageURL {
+                    AsyncImage(url: url) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Image(systemName: "person.crop.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(
+                                    LinearGradient(colors: [Color("SoftGreen"), Color("SoftBlue")], startPoint: .top, endPoint: .bottom)
+                                )
+                        }
+                    }
                     .frame(width: 80, height: 80)
-                    .foregroundStyle(
-                        LinearGradient(colors: [Color("SoftGreen"), Color("SoftBlue")], startPoint: .top, endPoint: .bottom)
-                    )
+                    .clipShape(Circle())
+                } else {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundStyle(
+                            LinearGradient(colors: [Color("SoftGreen"), Color("SoftBlue")], startPoint: .top, endPoint: .bottom)
+                        )
+                }
 
-                Text(userEmail)
+                Text(appState.user?.displayName ?? "Unknown")
                     .font(.headline)
             }
             .padding()
