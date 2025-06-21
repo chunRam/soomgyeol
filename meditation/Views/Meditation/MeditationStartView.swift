@@ -54,6 +54,9 @@ struct MeditationStartView: View {
             .padding()
         }
         .onAppear(perform: startMeditation)
+        .onDisappear {
+            endMeditation()
+        }
     }
 
     private func startMeditation() {
