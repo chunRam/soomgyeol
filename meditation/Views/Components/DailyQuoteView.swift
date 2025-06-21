@@ -8,7 +8,7 @@ struct DailyQuoteView: View {
             Text("오늘의 한마디")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            Text("\u201C\(quote.text)\u201D")
+            Text("\u{201C}\(quote.text)\u{201D}")
                 .font(.headline)
                 .multilineTextAlignment(.leading)
         }
