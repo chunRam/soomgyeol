@@ -128,29 +128,24 @@ struct StatsTabView: View {
                     ProgressView(value: viewModel.weeklyProgress)
                         .padding(.horizontal)
 
-                    let calendar = Calendar.current
-                    let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start ?? Date()
-                    let progressData = (0..<7).compactMap { offset -> (day: String, value: Int)? in
-                        guard let date = calendar.date(byAdding: .day, value: offset, to: startOfWeek) else { return nil }
-                        let weekday = calendar.component(.weekday, from: date)
-                        let symbol = calendar.weekdaySymbols[weekday - 1]
-                        return (day: symbol, value: viewModel.weeklyStats[symbol] == true ? 1 : 0)
-                    }
-
-                    Chart {
-                        ForEach(progressData, id: \.day) { item in
-                            LineMark(
-                                x: .value("Day", item.day),
-                                y: .value("완료", item.value)
-                            )
-                            PointMark(
-                                x: .value("Day", item.day),
-                                y: .value("완료", item.value)
-                            )
+                    HStack(spacing: 12) {
+                        ForEach(Calendar.current.weekdaySymbols, id: \.self) { day in
+                            VStack(spacing: 4) {
+                                Text(String(day.prefix(1)))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Image(systemName: viewModel.weeklyStats[day] == true ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(viewModel.weeklyStats[day] == true ? .green : .gray)
+                            }
                         }
                     }
-                    .frame(height: 160)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal)
+
+                    Text("초록 체크가 있는 요일은 명상 세션을 완료한 날을 의미합니다.")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
                 }
                 .padding()
                 .background(.thinMaterial)
