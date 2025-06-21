@@ -48,14 +48,14 @@ struct AppRootView: View {
                 mood: mood,
                 music: music,
                 onFinish: {
-                    let entry = JournalEntry(
-                        mood: mood.name,
-                        text: "",
-                        durationMinutes: duration,
-                        date: Date()
-                    )
-                    appState.navigate(to: .journalEditor(entry: entry))
+                    appState.navigate(to: .meditationSummary(duration: duration, mood: mood))
                 }
+            )
+
+        case .meditationSummary(let duration, let mood):
+            MeditationSummaryView(
+                durationMinutes: duration,
+                mood: mood
             )
 
         case .journalEditor(let entry):
