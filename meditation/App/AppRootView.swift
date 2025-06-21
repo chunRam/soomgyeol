@@ -47,8 +47,8 @@ struct AppRootView: View {
                 durationMinutes: duration,
                 mood: mood,
                 music: music,
-                onFinish: {
-                    appState.navigate(to: .meditationSummary(duration: duration, mood: mood))
+                onFinish: { actualDuration in
+                    appState.navigate(to: .meditationSummary(duration: actualDuration, mood: mood))
                 }
             )
 
