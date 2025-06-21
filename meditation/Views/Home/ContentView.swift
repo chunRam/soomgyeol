@@ -24,8 +24,7 @@ struct ContentView: View {
             Spacer()
 
             Button(action: {
-                // 타이머 5분 + 음악 임시 선택
-                navigate(.meditation(duration: 5, mood: mood, music: "meditation1"))
+                navigate(.meditationSetup(mood))
             }) {
                 Text("명상 시작하기")
                     .frame(maxWidth: .infinity)
