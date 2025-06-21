@@ -6,6 +6,9 @@ struct MeditationSetupView: View {
 
     @State private var duration: Int = 5
     @State private var selectedMusic: String = "meditation1"
+    /// Tracks whether we are navigating to the meditation screen. Used to avoid
+    /// stopping the music after `MeditationStartView` begins playback.
+    @State private var isNavigatingToMeditation = false
 
     private let musicOptions = ["meditation1", "meditation2", "meditation3"]
 
@@ -36,6 +39,7 @@ struct MeditationSetupView: View {
             Spacer()
 
             Button(action: {
+                isNavigatingToMeditation = true
                 AudioPlayerService.shared.stop()
                 navigate(.meditation(duration: duration, mood: mood, music: selectedMusic))
             }) {
@@ -57,7 +61,11 @@ struct MeditationSetupView: View {
             AudioPlayerService.shared.play(name: selectedMusic, loop: true)
         }
         .onDisappear {
-            AudioPlayerService.shared.stop()
+            if !isNavigatingToMeditation {
+                AudioPlayerService.shared.stop()
+            }
+            // Reset flag for the next appearance
+            isNavigatingToMeditation = false
         }
     }
 
