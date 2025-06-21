@@ -33,7 +33,12 @@ struct MeditationSetupView: View {
             VStack {
                 Text("명상 시간: \(duration)분")
                     .font(.title2)
-                Stepper("시간 선택", value: $duration, in: 1...60)
+                Picker("시간 선택", selection: $duration) {
+                    ForEach(1...60, id: \.self) { minute in
+                        Text("\(minute)분").tag(minute)
+                    }
+                }
+                .pickerStyle(.wheel)
             }
             .padding()
 
