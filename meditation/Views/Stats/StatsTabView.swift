@@ -77,6 +77,9 @@ struct StatsTabView: View {
                 Spacer()
             }
         }
+        .onAppear {
+            viewModel.fetchStats()
+        }
         .background(Color.white.ignoresSafeArea())
     }
 }
