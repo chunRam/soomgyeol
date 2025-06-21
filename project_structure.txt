@@ -92,11 +92,6 @@
 │           │   └── Breakpoints_v2.xcbkptlist
 │           └── xcschemes
 │               └── xcschememanagement.plist
-├── meditationTests
-│   └── meditationTests.swift
-├── meditationUITests
-│   ├── meditationUITests.swift
-│   └── meditationUITestsLaunchTests.swift
 └── project_structure.txt
 
-45 directories, 59 files
+43 directories, 56 files

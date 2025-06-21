@@ -11,43 +11,15 @@
 		B32CA70B2E0599ED003C8652 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B32CA70A2E0599ED003C8652 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B32CA6EB2E05996D003C8652 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B32CA6D52E05996B003C8652 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B32CA6DC2E05996B003C8652;
-			remoteInfo = meditation;
-		};
-		B32CA6F52E05996D003C8652 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B32CA6D52E05996B003C8652 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B32CA6DC2E05996B003C8652;
-			remoteInfo = meditation;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B32CA6DD2E05996B003C8652 /* Meditation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditation.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B32CA6EA2E05996D003C8652 /* MeditationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeditationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B32CA6F42E05996D003C8652 /* MeditationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeditationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B32CA6DF2E05996B003C8652 /* meditation */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = meditation;
-			sourceTree = "<group>";
-		};
-		B32CA6ED2E05996D003C8652 /* meditationTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = meditationTests;
-			sourceTree = "<group>";
-		};
-		B32CA6F72E05996D003C8652 /* meditationUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = meditationUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,20 +34,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B32CA6E72E05996D003C8652 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B32CA6F12E05996D003C8652 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				B32CA6DF2E05996B003C8652 /* meditation */,
-				B32CA6ED2E05996D003C8652 /* meditationTests */,
-				B32CA6F72E05996D003C8652 /* meditationUITests */,
 				B32CA6DE2E05996B003C8652 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,8 +49,6 @@
 			isa = PBXGroup;
 			children = (
 				B32CA6DD2E05996B003C8652 /* Meditation.app */,
-				B32CA6EA2E05996D003C8652 /* MeditationTests.xctest */,
-				B32CA6F42E05996D003C8652 /* MeditationUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,52 +80,6 @@
 			productReference = B32CA6DD2E05996B003C8652 /* Meditation.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B32CA6E92E05996D003C8652 /* MeditationTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B32CA7012E05996D003C8652 /* Build configuration list for PBXNativeTarget "MeditationTests" */;
-			buildPhases = (
-				B32CA6E62E05996D003C8652 /* Sources */,
-				B32CA6E72E05996D003C8652 /* Frameworks */,
-				B32CA6E82E05996D003C8652 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B32CA6EC2E05996D003C8652 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B32CA6ED2E05996D003C8652 /* meditationTests */,
-			);
-			name = MeditationTests;
-			packageProductDependencies = (
-			);
-			productName = meditationTests;
-			productReference = B32CA6EA2E05996D003C8652 /* MeditationTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B32CA6F32E05996D003C8652 /* MeditationUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B32CA7042E05996D003C8652 /* Build configuration list for PBXNativeTarget "MeditationUITests" */;
-			buildPhases = (
-				B32CA6F02E05996D003C8652 /* Sources */,
-				B32CA6F12E05996D003C8652 /* Frameworks */,
-				B32CA6F22E05996D003C8652 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B32CA6F62E05996D003C8652 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B32CA6F72E05996D003C8652 /* meditationUITests */,
-			);
-			name = MeditationUITests;
-			packageProductDependencies = (
-			);
-			productName = meditationUITests;
-			productReference = B32CA6F42E05996D003C8652 /* MeditationUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,14 +92,6 @@
 				TargetAttributes = {
 					B32CA6DC2E05996B003C8652 = {
 						CreatedOnToolsVersion = 16.3;
-					};
-					B32CA6E92E05996D003C8652 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = B32CA6DC2E05996B003C8652;
-					};
-					B32CA6F32E05996D003C8652 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = B32CA6DC2E05996B003C8652;
 					};
 				};
 			};
@@ -212,29 +112,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B32CA6DC2E05996B003C8652 /* Meditation */,
-				B32CA6E92E05996D003C8652 /* MeditationTests */,
-				B32CA6F32E05996D003C8652 /* MeditationUITests */,
+                               B32CA6DC2E05996B003C8652 /* Meditation */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B32CA6DB2E05996B003C8652 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B32CA6E82E05996D003C8652 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B32CA6F22E05996D003C8652 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,33 +135,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B32CA6E62E05996D003C8652 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B32CA6F02E05996D003C8652 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B32CA6EC2E05996D003C8652 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B32CA6DC2E05996B003C8652 /* Meditation */;
-			targetProxy = B32CA6EB2E05996D003C8652 /* PBXContainerItemProxy */;
-		};
-		B32CA6F62E05996D003C8652 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B32CA6DC2E05996B003C8652 /* Meditation */;
-			targetProxy = B32CA6F52E05996D003C8652 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -454,74 +314,6 @@
 			};
 			name = Release;
 		};
-		B32CA7022E05996D003C8652 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ptu.meditationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meditation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Meditation";
-			};
-			name = Debug;
-		};
-		B32CA7032E05996D003C8652 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ptu.meditationTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meditation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Meditation";
-			};
-			name = Release;
-		};
-		B32CA7052E05996D003C8652 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ptu.meditationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = meditation;
-			};
-			name = Debug;
-		};
-		B32CA7062E05996D003C8652 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ptu.meditationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = meditation;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,24 +331,6 @@
 			buildConfigurations = (
 				B32CA6FF2E05996D003C8652 /* Debug */,
 				B32CA7002E05996D003C8652 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B32CA7012E05996D003C8652 /* Build configuration list for PBXNativeTarget "MeditationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B32CA7022E05996D003C8652 /* Debug */,
-				B32CA7032E05996D003C8652 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B32CA7042E05996D003C8652 /* Build configuration list for PBXNativeTarget "MeditationUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B32CA7052E05996D003C8652 /* Debug */,
-				B32CA7062E05996D003C8652 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
