@@ -12,6 +12,14 @@ struct StatsTabView: View {
                     .padding(.top)
                     .padding(.horizontal)
 
+                Picker("기간", selection: $viewModel.timeRange) {
+                    ForEach(StatsViewModel.TimeRange.allCases) { range in
+                        Text(range.rawValue).tag(range)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+
                 if viewModel.hasError, let error = viewModel.errorMessage {
                     Text(error)
                         .font(.caption)
@@ -32,6 +40,31 @@ struct StatsTabView: View {
                     Text("\(viewModel.totalMinutes)분")
                         .font(.system(size: 36, weight: .bold))
                         .foregroundColor(.white)
+
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("세션 수")
+                                .font(.caption)
+                            Text("\(viewModel.sessionCount)")
+                                .font(.headline)
+                        }
+                        Spacer()
+                        VStack(alignment: .leading) {
+                            Text("평균 시간")
+                                .font(.caption)
+                            Text("\(Int(viewModel.averageSessionMinutes))분")
+                                .font(.headline)
+                        }
+                        Spacer()
+                        VStack(alignment: .leading) {
+                            Text("최장 세션")
+                                .font(.caption)
+                            Text("\(viewModel.longestSessionMinutes)분")
+                                .font(.headline)
+                        }
+                    }
+                    .padding(.top, 4)
+                    .foregroundColor(.white)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,6 +121,12 @@ struct StatsTabView: View {
                     }
                     .font(.headline)
                     .padding(.horizontal)
+
+                    Stepper("목표: \(viewModel.weeklyGoal)일", value: $viewModel.weeklyGoal, in: 1...7)
+                        .padding(.horizontal)
+
+                    ProgressView(value: viewModel.weeklyProgress)
+                        .padding(.horizontal)
 
                     let progressData = Calendar.current.weekdaySymbols.map { day in
                         (day: day, value: viewModel.weeklyStats[day] == true ? 1 : 0)
