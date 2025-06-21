@@ -27,46 +27,60 @@ struct MeditationSetupView: View {
     private let musicOptions = MusicOption.all
 
     var body: some View {
-        VStack(spacing: 24) {
-            Spacer()
-
-            VStack {
-                Text("명상 시간: \(duration)분")
-                    .font(.title2)
-                Stepper("시간 선택", value: $duration, in: 1...60)
-            }
-            .padding()
-
-            VStack(alignment: .leading, spacing: 12) {
-                Text("배경 음악")
-                    .font(.title3)
-                Picker("음악", selection: $selectedMusic) {
-                    ForEach(musicOptions) { option in
-                        Text(option.displayName)
-                            .tag(option)
-                    }
+        ScrollView {
+            VStack(spacing: 32) {
+                VStack(spacing: 8) {
+                    Text(mood.emoji)
+                        .font(.system(size: 64))
+                    Text(mood.name)
+                        .font(.title2.bold())
                 }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            .padding()
+                .padding(.top)
 
-            Spacer()
+                VStack(spacing: 16) {
+                    Text("명상 시간")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-            Button(action: {
-                isNavigatingToMeditation = true
-                AudioPlayerService.shared.stop()
-                navigate(.meditation(duration: duration, mood: mood, music: selectedMusic.id))
-            }) {
-                Text("명상 시작하기")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(mood.colorName))
-                    .foregroundColor(.white)
-                    .cornerRadius(16)
+                    Picker("시간 선택", selection: $duration) {
+                        ForEach(1...60, id: \.self) { minute in
+                            Text("\(minute)분").tag(minute)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .labelsHidden()
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(20)
+                .padding(.horizontal)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("배경 음악")
+                        .font(.headline)
+                    Picker("음악", selection: $selectedMusic) {
+                        ForEach(musicOptions) { option in
+                            Text(option.displayName)
+                                .tag(option)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(20)
+                .padding(.horizontal)
+
+                RoundedButton(title: "명상 시작하기", backgroundColor: Color(mood.colorName)) {
+                    isNavigatingToMeditation = true
+                    AudioPlayerService.shared.stop()
+                    navigate(.meditation(duration: duration, mood: mood, music: selectedMusic.id))
+                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
+            .padding(.vertical)
         }
-        .padding()
+        .background(Color(mood.colorName).opacity(0.1))
         .navigationTitle("명상 설정")
         .onAppear {
             AudioPlayerService.shared.play(name: selectedMusic.id, loop: true)
