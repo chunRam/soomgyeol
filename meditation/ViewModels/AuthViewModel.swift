@@ -7,11 +7,12 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isAuthenticated = false
 
-    func signIn(completion: @escaping () -> Void) {
+    func signIn(appState: AppState, completion: @escaping () -> Void) {
         AuthService.shared.signIn(email: email, password: password) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
+                case .success(let firebaseUser):
+                    appState.user = User(firebaseUser: firebaseUser)
                     self.isAuthenticated = true
                     completion()
                 case .failure(let error):
@@ -21,11 +22,12 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    func signUp(completion: @escaping () -> Void) {
+    func signUp(appState: AppState, completion: @escaping () -> Void) {
         AuthService.shared.signUp(email: email, password: password) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
+                case .success(let firebaseUser):
+                    appState.user = User(firebaseUser: firebaseUser)
                     self.isAuthenticated = true
                     completion()
                 case .failure(let error):

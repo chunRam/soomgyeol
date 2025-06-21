@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
+    @EnvironmentObject var appState: AppState
     let navigate: (Route) -> Void
 
     var body: some View {
@@ -41,7 +42,7 @@ struct LoginView: View {
 
             VStack(spacing: 12) {
                 RoundedButton(title: "로그인", backgroundColor: .green) {
-                    viewModel.signIn {
+                    viewModel.signIn(appState: appState) {
                         navigate(.home)
                     }
                 }
