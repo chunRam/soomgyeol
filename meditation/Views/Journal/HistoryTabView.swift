@@ -31,6 +31,7 @@ struct HistoryTabView: View {
     var body: some View {
         ZStack {
             Color(appState.currentMoodColor ?? "PastelMint")
+                .brightness(0.1)
                 .ignoresSafeArea()
 
             ScrollView {
@@ -106,7 +107,7 @@ struct HistoryTabView: View {
                     .brightness(-0.1)
             )
         }
-        .background(Color.clear) // base color handled by ZStack
+        .ignoresSafeArea(edges: .bottom)
         .searchable(text: $searchText, prompt: "검색")
         .navigationTitle("감정 일지")
         .toolbar {
