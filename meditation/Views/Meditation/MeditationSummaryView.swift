@@ -1,60 +1,82 @@
 import SwiftUI
 
 struct MeditationSummaryView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var journalViewModel = JournalViewModel()
+
     let durationMinutes: Int
     let mood: Mood
-    let onDone: () -> Void
 
-    @State private var note: String = ""
-    @State private var isSaving = false
-    @StateObject private var journalViewModel = JournalViewModel()
+    @State private var memo: String = ""
+    @State private var isSaving: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
 
     var body: some View {
         VStack(spacing: 24) {
             Text("명상 완료")
-                .font(.title)
+                .font(.title2)
+                .fontWeight(.bold)
 
-            Text("\(durationMinutes)분 동안 \(mood.name) 명상을 했어요")
-                .foregroundColor(.secondary)
+            VStack(spacing: 8) {
+                Text("감정: \(mood.name)")
+                Text("명상 시간: \(durationMinutes)분")
+            }
+            .foregroundColor(.secondary)
 
-            TextEditor(text: $note)
-                .frame(height: 120)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-                .overlay(
-                    Group {
-                        if note.isEmpty {
-                            Text("느낀 점을 기록해보세요...")
-                                .foregroundColor(.gray)
-                                .padding(.leading, 8)
-                                .padding(.top, 12)
-                                .allowsHitTesting(false)
-                        }
-                    }, alignment: .topLeading
-                )
+            ZStack(alignment: .topLeading) {
+                if memo.isEmpty {
+                    Text("메모를 작성해보세요…")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 12)
+                }
+
+                TextEditor(text: $memo)
+                    .frame(height: 160)
+                    .padding(4)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+            }
 
             if isSaving {
                 ProgressView()
             } else {
-                RoundedButton(title: "저장", backgroundColor: Color(mood.colorName)) {
-                    save()
+                Button(action: saveEntry) {
+                    Text("저장")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
                 }
             }
 
             Spacer()
         }
         .padding()
+        .navigationTitle("명상 기록")
+        .alert("오류", isPresented: $showAlert) {
+            Button("확인", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
     }
 
-    private func save() {
+    private func saveEntry() {
         isSaving = true
-        journalViewModel.saveJournal(mood: mood.name, text: note, durationMinutes: durationMinutes) { _ in
+        journalViewModel.saveJournal(mood: mood.name, text: memo, durationMinutes: durationMinutes) { result in
             DispatchQueue.main.async {
                 isSaving = false
-                onDone()
+                switch result {
+                case .success:
+                    appState.navigate(to: .home)
+                case .failure(let error):
+                    alertMessage = error.localizedDescription
+                    showAlert = true
+                }
             }
         }
     }
 }
-
