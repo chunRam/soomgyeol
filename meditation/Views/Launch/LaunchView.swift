@@ -30,7 +30,7 @@ struct LaunchView: View {
                 ) {
                     navigate(.signup)
                 }
-              
+
                 Button("게스트 모드로 시작하기") {
                     navigate(.home)
                 }
