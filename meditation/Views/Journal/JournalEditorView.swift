@@ -28,11 +28,23 @@ struct JournalEditorView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
 
-            TextEditor(text: $text)
-                .frame(height: 200)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
+            ZStack(alignment: .topLeading) {
+                if text.isEmpty {
+                    Text("오늘의 감정을 적어보세요…")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 12)
+                        .opacity(text.isEmpty ? 1 : 0)
+                        .animation(.easeInOut, value: text)
+                        .allowsHitTesting(false)
+                }
+
+                TextEditor(text: $text)
+                    .frame(height: 200)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+            }
 
             if isSaving {
                 ProgressView()
