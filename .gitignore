@@ -1,0 +1,14 @@
+# macOS 시스템 파일
+.DS_Store
+
+# Xcode 빌드 파일 및 사용자 설정
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# SwiftPM 빌드
+.build/
+
+# Firebase에서 자동 생성되는 파일
+GoogleService-Info.plist
