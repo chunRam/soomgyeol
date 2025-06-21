@@ -30,20 +30,11 @@ struct LaunchView: View {
                 ) {
                     navigate(.signup)
                 }
-
-                Button(action: {
+              
+                Button("게스트 모드로 시작하기") {
                     navigate(.home)
-                }) {
-                    Text("게스트 모드로 시작하기")
-                        .font(.system(size: 16, weight: .semibold))
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                        )
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(.gray)
             }
             .padding(.horizontal)
 
