@@ -2,6 +2,7 @@ import SwiftUI
 
 struct JournalEditorView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var appState: AppState
 
     @StateObject private var viewModel = JournalViewModel()
     let entry: JournalEntry
@@ -65,12 +66,12 @@ struct JournalEditorView: View {
 
         isSaving = true
 
-        viewModel.saveJournal(mood: entry.mood, text: text, durationMinutes: entry.durationMinutes) { result in
+        viewModel.updateJournal(entry: entry, newText: text) { result in
             DispatchQueue.main.async {
                 isSaving = false
                 switch result {
                 case .success:
-                    dismiss()
+                    appState.navigate(to: .home)
                 case .failure(let error):
                     alertMessage = error.localizedDescription
                     showAlert = true
