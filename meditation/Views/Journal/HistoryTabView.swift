@@ -29,12 +29,8 @@ struct HistoryTabView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color("PastelMint")
-                .brightness(0.1)
-
-            ScrollView {
-                VStack(spacing: 12) {
+        ScrollView {
+            VStack(spacing: 12) {
                 Picker("감정 필터", selection: $selectedMoodID) {
                     Text("전체").tag(String?.none)
                     ForEach(Mood.sampleMoods) { mood in
@@ -100,12 +96,8 @@ struct HistoryTabView: View {
                     }
                 }
                 .padding(.top)
-            }
-            .background(
-                Color("PastelMint")
-                    .brightness(-0.1)
-            )
         }
+        .background(Color("PastelMint").ignoresSafeArea())
         .searchable(text: $searchText, prompt: "검색")
         .navigationTitle("감정 일지")
         .toolbar {
@@ -121,7 +113,6 @@ struct HistoryTabView: View {
         .onDisappear {
             viewModel.removeListener()
         }
-        .background(Color.white.ignoresSafeArea())
     }
 
     private func addEntry() {
@@ -135,4 +126,4 @@ struct HistoryTabView: View {
         appState.navigate(to: .journalEditor(entry: newEntry))
     }
 }
-}
+
