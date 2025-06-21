@@ -28,6 +28,7 @@ struct HomeTabView: View {
                         MoodCardView(mood: mood, isSelected: isSelected)
                             .onTapGesture {
                                 selectedMood = mood
+                                appState.selectedMoodColor = mood.colorName
                             }
                     }
                 }
@@ -53,7 +54,10 @@ struct HomeTabView: View {
                 }
                 .padding(.vertical)
         }
-        .background(Color(selectedMood?.colorName ?? "SoftGray").opacity(0.15)) // ✅ 수정
+        .background(
+            Color(appState.selectedMoodColor ?? selectedMood?.colorName ?? "SoftGray")
+                .opacity(0.15)
+        ) // ✅ 수정
         .ignoresSafeArea(edges: .bottom)
     }
 }

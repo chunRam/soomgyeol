@@ -4,6 +4,8 @@ import FirebaseAuth
 class AppState: ObservableObject {
     @Published var path: [Route] = []
     @Published var isLoggedIn: Bool = false
+    /// Color name of the mood selected on the Home tab.
+    @Published var selectedMoodColor: String? = nil
 
     private var authListenerHandle: AuthStateDidChangeListenerHandle?
 
