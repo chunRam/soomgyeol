@@ -8,7 +8,6 @@
 │   ├── GoogleService-Info.plist
 │   ├── Models
 │   │   ├── JournalEntry.swift
-│   │   ├── MeditationSession.swift
 │   │   ├── Mood.swift
 │   │   ├── Quote.swift
 │   │   └── User.swift
@@ -44,10 +43,8 @@
 │   │   ├── AuthService.swift
 │   │   └── FirebaseManager.swift
 │   ├── ViewModels
-│   │   ├── AppStateViewModel.swift
 │   │   ├── AuthViewModel.swift
 │   │   ├── JournalViewModel.swift
-│   │   ├── MeditationViewModel.swift
 │   │   └── StatsViewModel.swift
 │   └── Views
 │       ├── Auth
@@ -102,4 +99,4 @@
 │   └── meditationUITestsLaunchTests.swift
 └── project_structure.txt
 
-45 directories, 62 files
+45 directories, 59 files
