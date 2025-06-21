@@ -11,8 +11,12 @@ struct HomeTabView: View {
     ]
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
+        ZStack {
+            Color(appState.currentMoodColor ?? "SoftGray")
+                .ignoresSafeArea()
+
+            ScrollView {
+                VStack(spacing: 24) {
                 DailyQuoteView()
                     .padding(.top)
 
@@ -28,6 +32,7 @@ struct HomeTabView: View {
                         MoodCardView(mood: mood, isSelected: isSelected)
                             .onTapGesture {
                                 selectedMood = mood
+                                appState.currentMoodColor = mood.colorName
                             }
                     }
                 }
@@ -52,8 +57,12 @@ struct HomeTabView: View {
                 }
                 }
                 .padding(.vertical)
+            }
+            .background(
+                Color(appState.currentMoodColor ?? "SoftGray")
+                    .brightness(-0.1)
+            )
         }
-        .background(Color(selectedMood?.colorName ?? "SoftGray").opacity(0.15)) // ✅ 수정
         .ignoresSafeArea(edges: .bottom)
     }
 }
