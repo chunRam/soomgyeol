@@ -8,6 +8,7 @@ class AppState: ObservableObject {
     private var authListenerHandle: AuthStateDidChangeListenerHandle?
 
     init() {
+        isLoggedIn = Auth.auth().currentUser != nil
         observeAuthChanges()
     }
 
