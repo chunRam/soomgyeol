@@ -42,10 +42,6 @@
 │   │   ├── AudioPlayerService.swift
 │   │   ├── AuthService.swift
 │   │   └── FirebaseManager.swift
-│   ├── Utils
-│   │   ├── Color+Theme.swift
-│   │   ├── Constants.swift
-│   │   └── Date+Format.swift
 │   ├── ViewModels
 │   │   ├── AppStateViewModel.swift
 │   │   ├── AuthViewModel.swift
