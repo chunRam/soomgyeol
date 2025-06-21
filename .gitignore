@@ -1,62 +1,62 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## User settings
-xcuserdata/
-
-## Obj-C/Swift specific
-*.hmap
-
-## App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
-.build/
-
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
-
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+     1	# Xcode
+     2	#
+     3	# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+     4	
+     5	## User settings
+     6	xcuserdata/
+     7	
+     8	## Obj-C/Swift specific
+     9	*.hmap
+    10	
+    11	## App packaging
+    12	*.ipa
+    13	*.dSYM.zip
+    14	*.dSYM
+    15	
+    16	## Playgrounds
+    17	timeline.xctimeline
+    18	playground.xcworkspace
+    19	
+    20	# Swift Package Manager
+    21	#
+    22	# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+    23	# Packages/
+    24	# Package.pins
+    25	# Package.resolved
+    26	# *.xcodeproj
+    27	#
+    28	# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+    29	# hence it is not needed unless you have added a package configuration file to your project
+    30	# .swiftpm
+    31	
+    32	.build/
+    33	
+    34	# CocoaPods
+    35	#
+    36	# We recommend against adding the Pods directory to your .gitignore. However
+    37	# you should judge for yourself, the pros and cons are mentioned at:
+    38	# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+    39	#
+    40	# Pods/
+    41	#
+    42	# Add this line if you want to avoid checking in source code from the Xcode workspace
+    43	# *.xcworkspace
+    44	
+    45	# Carthage
+    46	#
+    47	# Add this line if you want to avoid checking in source code from Carthage dependencies.
+    48	# Carthage/Checkouts
+    49	
+    50	Carthage/Build/
+    51	
+    52	# fastlane
+    53	#
+    54	# It is recommended to not store the screenshots in the git repo.
+    55	# Instead, use fastlane to re-generate the screenshots whenever they are needed.
+    56	# For more information about the recommended setup visit:
+    57	# https://docs.fastlane.tools/best-practices/source-control/#source-control
+    58	
+    59	fastlane/report.xml
+    60	fastlane/Preview.html
+    61	fastlane/screenshots/**/*.png
+    62	fastlane/test_output
