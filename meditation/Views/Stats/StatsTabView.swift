@@ -12,6 +12,13 @@ struct StatsTabView: View {
                     .padding(.top)
                     .padding(.horizontal)
 
+                if viewModel.hasError, let error = viewModel.errorMessage {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
+
                 // 총 명상 시간
                 VStack(alignment: .leading, spacing: 8) {
                     Text("누적 명상 시간")
