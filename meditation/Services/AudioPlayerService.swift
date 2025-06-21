@@ -14,6 +14,10 @@ final class AudioPlayerService {
             return
         }
         do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, mode: .default)
+            try session.setActive(true)
+
             player = try AVAudioPlayer(contentsOf: url)
             player?.numberOfLoops = loop ? -1 : 0
             player?.play()
