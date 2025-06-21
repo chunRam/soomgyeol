@@ -113,14 +113,25 @@ class StatsViewModel: ObservableObject {
         var longest = 0
         var weekly: [String: Bool] = [:]
 
+        // Entries that fall within the current calendar week
+        let weekInterval = calendar.dateInterval(of: .weekOfYear, for: Date())
+        let weekStart = weekInterval?.start ?? Date()
+        let weekEnd = calendar.date(byAdding: .day, value: 7, to: weekStart) ?? Date()
+        let thisWeekEntries = entries.filter { $0.date >= weekStart && $0.date < weekEnd }
+
         for entry in filtered {
             moodDict[entry.mood, default: 0] += 1
             minutesSum += entry.durationMinutes
             longest = max(longest, entry.durationMinutes)
+        }
 
-            let weekday = calendar.component(.weekday, from: entry.date)
+        // Populate weekly stats for each day of the current week
+        for i in 0..<7 {
+            guard let date = calendar.date(byAdding: .day, value: i, to: weekStart) else { continue }
+            let weekday = calendar.component(.weekday, from: date)
             let day = calendar.weekdaySymbols[weekday - 1]
-            weekly[day] = true
+            let hasSession = thisWeekEntries.contains { calendar.isDate($0.date, inSameDayAs: date) }
+            weekly[day] = hasSession
         }
 
         DispatchQueue.main.async {

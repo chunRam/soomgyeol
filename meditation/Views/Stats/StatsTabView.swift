@@ -128,8 +128,13 @@ struct StatsTabView: View {
                     ProgressView(value: viewModel.weeklyProgress)
                         .padding(.horizontal)
 
-                    let progressData = Calendar.current.weekdaySymbols.map { day in
-                        (day: day, value: viewModel.weeklyStats[day] == true ? 1 : 0)
+                    let calendar = Calendar.current
+                    let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start ?? Date()
+                    let progressData = (0..<7).compactMap { offset -> (day: String, value: Int)? in
+                        guard let date = calendar.date(byAdding: .day, value: offset, to: startOfWeek) else { return nil }
+                        let weekday = calendar.component(.weekday, from: date)
+                        let symbol = calendar.weekdaySymbols[weekday - 1]
+                        return (day: symbol, value: viewModel.weeklyStats[symbol] == true ? 1 : 0)
                     }
 
                     Chart {
