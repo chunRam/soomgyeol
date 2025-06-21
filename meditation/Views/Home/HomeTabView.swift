@@ -11,13 +11,12 @@ struct HomeTabView: View {
     ]
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    Text("오늘의 기분은 어때요?")
-                        .font(.system(size: 22, weight: .bold))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+        ScrollView {
+            VStack(spacing: 24) {
+                Text("오늘의 기분은 어때요?")
+                    .font(.system(size: 22, weight: .bold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
 
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(moods) { mood in
@@ -50,9 +49,8 @@ struct HomeTabView: View {
                     }
                 }
                 .padding(.vertical)
-            }
-            .background(Color(selectedMood?.colorName ?? "SoftGray").opacity(0.15)) // ✅ 수정
-            .ignoresSafeArea(edges: .bottom)
         }
+        .background(Color(selectedMood?.colorName ?? "SoftGray").opacity(0.15)) // ✅ 수정
+        .ignoresSafeArea(edges: .bottom)
     }
 }
