@@ -97,7 +97,7 @@ struct HistoryTabView: View {
                 }
                 .padding(.top)
         }
-        .background(Color("SoftGray").ignoresSafeArea())
+        .background(Color("PastelMint").ignoresSafeArea())
         .searchable(text: $searchText, prompt: "검색")
         .navigationTitle("감정 일지")
         .toolbar {
