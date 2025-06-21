@@ -11,6 +11,7 @@ struct JournalEditorView: View {
     @State private var isSaving: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    @State private var showDeleteConfirm: Bool = false
 
     init(entry: JournalEntry) {
         self.entry = entry
@@ -45,6 +46,18 @@ struct JournalEditorView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+
+                Button(role: .destructive) {
+                    showDeleteConfirm = true
+                } label: {
+                    Text("삭제")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
             }
 
             Spacer()
@@ -54,6 +67,10 @@ struct JournalEditorView: View {
             Button("확인", role: .cancel) {}
         } message: {
             Text(alertMessage)
+        }
+        .alert("일기를 삭제할까요?", isPresented: $showDeleteConfirm) {
+            Button("삭제", role: .destructive, action: deleteEntry)
+            Button("취소", role: .cancel) {}
         }
     }
 
@@ -67,6 +84,22 @@ struct JournalEditorView: View {
         isSaving = true
 
         viewModel.updateJournal(entry: entry, newText: text) { result in
+            DispatchQueue.main.async {
+                isSaving = false
+                switch result {
+                case .success:
+                    appState.navigate(to: .home)
+                case .failure(let error):
+                    alertMessage = error.localizedDescription
+                    showAlert = true
+                }
+            }
+        }
+    }
+
+    private func deleteEntry() {
+        isSaving = true
+        viewModel.deleteJournal(entry: entry) { result in
             DispatchQueue.main.async {
                 isSaving = false
                 switch result {

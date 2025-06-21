@@ -62,6 +62,7 @@ struct MeditationSetupView: View {
     }
 
     private func playMusic() {
+        audioPlayer?.stop()
         guard let url = Bundle.main.url(forResource: selectedMusic, withExtension: "mp3") else { return }
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
