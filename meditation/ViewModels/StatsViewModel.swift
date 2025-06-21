@@ -1,0 +1,61 @@
+import Foundation
+import FirebaseAuth
+import FirebaseFirestore
+
+class StatsViewModel: ObservableObject {
+    @Published var moodCount: [String: Int] = [:]
+    @Published var totalMinutes: Int = 0
+    @Published var weeklyStats: [String: Bool] = [:]
+    @Published var hasError: Bool = false
+    @Published var errorMessage: String?
+
+    private let db = Firestore.firestore()
+
+    init() {
+        fetchStats()
+    }
+
+    func fetchStats() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            self.hasError = true
+            self.errorMessage = "로그인 상태가 아닙니다."
+            return
+        }
+
+        db.collection("users").document(userId)
+            .collection("journals")
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self.hasError = true
+                        self.errorMessage = error.localizedDescription
+                    }
+                    return
+                }
+
+                guard let documents = snapshot?.documents else { return }
+
+                var moodDict: [String: Int] = [:]
+                var minutesSum = 0
+                var weekly: [String: Bool] = [:]
+                let calendar = Calendar.current
+
+                for doc in documents {
+                    if let entry = try? doc.data(as: JournalEntry.self) {
+                        moodDict[entry.mood, default: 0] += 1
+                        minutesSum += entry.durationMinutes
+
+                        let weekday = calendar.component(.weekday, from: entry.date)
+                        let day = calendar.weekdaySymbols[weekday - 1]
+                        weekly[day] = true
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    self.moodCount = moodDict
+                    self.totalMinutes = minutesSum
+                    self.weeklyStats = weekly
+                }
+            }
+    }
+}
