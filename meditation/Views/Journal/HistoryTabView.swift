@@ -8,6 +8,12 @@ struct HistoryTabView: View {
     /// Optional mood identifier used to limit results to a specific mood.
     @State private var selectedMoodID: String?
 
+    /// Currently selected mood based on `selectedMoodID`.
+    private var selectedMood: Mood? {
+        guard let id = selectedMoodID else { return nil }
+        return Mood.mood(for: id)
+    }
+
     /// Filtered list of journal entries matching the current search criteria.
     private var filteredEntries: [JournalEntry] {
         viewModel.entries.filter { entry in
@@ -97,7 +103,8 @@ struct HistoryTabView: View {
                 }
                 .padding(.top)
         }
-        .background(Color("PastelMint").ignoresSafeArea())
+        .background(Color(selectedMood?.colorName ?? "PastelMint").opacity(0.15))
+        .ignoresSafeArea()
         .searchable(text: $searchText, prompt: "검색")
         .navigationTitle("감정 일지")
         .toolbar {
