@@ -8,20 +8,38 @@ struct HistoryTabView: View {
         ScrollView {
             LazyVStack(spacing: 16) {
                     ForEach(viewModel.entries) { entry in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("🗓️ \(entry.date.formatted(.dateTime.year().month().day()))")
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                        let mood = Mood.mood(for: entry.mood)
 
-                            Text("감정: \(entry.mood)")
-                                .font(.headline)
+                        HStack(alignment: .top, spacing: 12) {
+                            if let mood = mood {
+                                Text(mood.emoji)
+                                    .font(.title)
+                                    .frame(width: 44, height: 44)
+                                    .background(Color(mood.colorName))
+                                    .clipShape(Circle())
+                            }
 
-                            Text(entry.text)
-                                .lineLimit(3)
-                                .foregroundColor(.secondary)
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("🗓️ \(entry.date.formatted(.dateTime.year().month().day()))")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+
+                                if let mood = mood {
+                                    Text(mood.name)
+                                        .font(.headline)
+                                } else {
+                                    Text(entry.mood)
+                                        .font(.headline)
+                                }
+
+                                Text(entry.text)
+                                    .lineLimit(3)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                         .padding()
-                        .background(Color.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(mood?.colorName ?? "white").opacity(0.1))
                         .cornerRadius(16)
                         .shadow(color: .gray.opacity(0.1), radius: 2, x: 0, y: 2)
                         .padding(.horizontal)

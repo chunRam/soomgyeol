@@ -14,4 +14,9 @@ struct Mood: Identifiable, Equatable, Hashable {
         Mood(id: "calm", name: "평온", emoji: "😌", colorName: "SoftGreen", message: "지금의 평온함을 고요하게 이어가보세요."),
         Mood(id: "anxious", name: "불안", emoji: "😰", colorName: "Lavender", message: "불안한 마음을 부드럽게 안아주세요.")
     ]
+
+    /// Helper to look up a `Mood` by its identifier string stored in `JournalEntry.mood`.
+    static func mood(for id: String) -> Mood? {
+        sampleMoods.first { $0.id == id }
+    }
 }
