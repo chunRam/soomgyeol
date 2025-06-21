@@ -10,7 +10,7 @@ struct HistoryTabView: View {
 
     /// Base color shared with the Home tab.
     private var baseColor: Color {
-        Color(appState.selectedMoodColor ?? "PastelMint")
+        Color(appState.currentMoodColor ?? "PastelMint")
     }
 
     /// Slightly darker color used behind journal entries.
@@ -118,7 +118,7 @@ struct HistoryTabView: View {
 
     var body: some View {
         ZStack {
-            baseColor.opacity(0.15)
+            baseColor
                 .ignoresSafeArea()
 
             ScrollView {
