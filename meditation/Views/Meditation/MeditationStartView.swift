@@ -1,5 +1,5 @@
 import SwiftUI
-import AVFoundation
+
 
 struct MeditationStartView: View {
     let durationMinutes: Int
@@ -9,7 +9,6 @@ struct MeditationStartView: View {
 
     @State private var remainingSeconds: Int = 0
     @State private var timer: Timer?
-    @State private var audioPlayer: AVAudioPlayer?
 
     var body: some View {
         ZStack {
@@ -56,21 +55,10 @@ struct MeditationStartView: View {
             }
         }
 
-        if let url = Bundle.main.url(forResource: music, withExtension: "mp3") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-                print("🎵 음악 재생 시작: \(music)")
-            } catch {
-                print("❌ 오디오 재생 실패: \(error.localizedDescription)")
-            }
-        } else {
-            print("⚠️ 음악 파일 '\(music).mp3' 을 찾을 수 없습니다.")
-        }
+        // 음악 재생은 설정 화면에서만 지원합니다.
     }
 
     private func endMeditation() {
         timer?.invalidate()
-        audioPlayer?.stop()
     }
 }

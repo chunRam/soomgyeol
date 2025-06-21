@@ -36,6 +36,12 @@ struct AppRootView: View {
                 navigate: appState.navigate
             )
 
+        case .meditationSetup(let mood):
+            MeditationSetupView(
+                mood: mood,
+                navigate: appState.navigate
+            )
+
         case .meditation(let duration, let mood, let music):
             MeditationStartView(
                 durationMinutes: duration,

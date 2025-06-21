@@ -2,11 +2,13 @@ import SwiftUI
 
 struct JournalEditorView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var appState: AppState
 
     @StateObject private var viewModel = JournalViewModel()
     let entry: JournalEntry
 
     @State private var text: String
+    @State private var showDeleteConfirm: Bool = false
     @State private var isSaving: Bool = false
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
@@ -54,6 +56,20 @@ struct JournalEditorView: View {
         } message: {
             Text(alertMessage)
         }
+        .navigationTitle("감정 일기")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(role: .destructive) {
+                    showDeleteConfirm = true
+                } label: {
+                    Text("삭제")
+                }
+            }
+        }
+        .confirmationDialog("이 일기를 삭제할까요?", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
+            Button("삭제", role: .destructive, action: deleteEntry)
+            Button("취소", role: .cancel) {}
+        }
     }
 
     private func saveEntry() {
@@ -65,12 +81,26 @@ struct JournalEditorView: View {
 
         isSaving = true
 
-        viewModel.saveJournal(mood: entry.mood, text: text, durationMinutes: entry.durationMinutes) { result in
+        viewModel.updateJournal(entry: entry, newText: text) { result in
             DispatchQueue.main.async {
                 isSaving = false
                 switch result {
                 case .success:
-                    dismiss()
+                    appState.navigate(to: .home)
+                case .failure(let error):
+                    alertMessage = error.localizedDescription
+                    showAlert = true
+                }
+            }
+        }
+    }
+
+    private func deleteEntry() {
+        viewModel.deleteJournal(entry: entry) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    appState.navigate(to: .home)
                 case .failure(let error):
                     alertMessage = error.localizedDescription
                     showAlert = true
