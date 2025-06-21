@@ -96,5 +96,4 @@ struct MeditationSetupView: View {
             isNavigatingToMeditation = false
         }
     }
-
 }
