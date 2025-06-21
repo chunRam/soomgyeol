@@ -28,7 +28,7 @@ class MeditationViewModel: ObservableObject {
             }
         }
 
-        AudioPlayerService.shared.play(music)
+        AudioPlayerService.shared.play(name: music)
     }
 
     func endMeditation() {
