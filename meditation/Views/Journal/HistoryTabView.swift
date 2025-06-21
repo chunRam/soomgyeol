@@ -50,5 +50,8 @@ struct HistoryTabView: View {
         .onAppear {
             viewModel.fetchJournals()
         }
+        .onDisappear {
+            viewModel.removeListener()
+        }
     }
 }
