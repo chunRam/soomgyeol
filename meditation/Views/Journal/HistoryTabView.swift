@@ -47,8 +47,26 @@ struct HistoryTabView: View {
         }
         .background(Color("SoftGray").ignoresSafeArea())
         .navigationTitle("감정 일지")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: addEntry) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
         .onAppear {
             viewModel.fetchJournals()
         }
+    }
+
+    private func addEntry() {
+        let mood = Mood.sampleMoods.first?.name ?? ""
+        let newEntry = JournalEntry(
+            mood: mood,
+            text: "",
+            durationMinutes: 0,
+            date: Date()
+        )
+        appState.navigate(to: .journalEditor(entry: newEntry))
     }
 }
