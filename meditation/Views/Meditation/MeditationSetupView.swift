@@ -51,10 +51,10 @@ struct MeditationSetupView: View {
         .padding()
         .navigationTitle("명상 설정")
         .onAppear {
-            AudioPlayerService.shared.play(selectedMusic, loop: true)
+            AudioPlayerService.shared.play(name: selectedMusic, loop: true)
         }
         .onChange(of: selectedMusic) { _ in
-            AudioPlayerService.shared.play(selectedMusic, loop: true)
+            AudioPlayerService.shared.play(name: selectedMusic, loop: true)
         }
         .onDisappear {
             AudioPlayerService.shared.stop()
