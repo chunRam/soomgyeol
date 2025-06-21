@@ -10,10 +10,10 @@ struct SignupView: View {
             Spacer()
 
             VStack(spacing: 12) {
-                Image(systemName: "person.crop.circle.fill")
+                Image(systemName: "leaf.circle.fill")
                     .resizable()
                     .frame(width: 80, height: 80)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.green)
 
                 Text("회원가입")
                     .font(.largeTitle.bold())
@@ -41,7 +41,7 @@ struct SignupView: View {
             }
 
             VStack(spacing: 12) {
-                RoundedButton(title: "회원가입", backgroundColor: .accentColor) {
+                RoundedButton(title: "회원가입", backgroundColor: .green) {
                     viewModel.signUp(appState: appState) {
                         navigate(.home)
                     }
