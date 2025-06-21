@@ -1,39 +1,40 @@
 import AVFoundation
 
-class AudioPlayerService {
+final class AudioPlayerService {
     static let shared = AudioPlayerService()
+    private var player: AVAudioPlayer?
 
-    private var audioPlayer: AVAudioPlayer?
-
-    private init() {}
-
-    /// Play a sound file from the app bundle.
+    /// Play an audio file located in the app bundle.
     /// - Parameters:
-    ///   - name: File name without extension.
-    ///   - loop: If true the sound will loop indefinitely.
-    func play(_ name: String, loop: Bool = false) {
-        stop()
+    ///   - name: Resource name without extension.
+    ///   - loop: Whether the audio should loop indefinitely.
+    func play(name: String, loop: Bool = true) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
+            print("음악 파일을 찾을 수 없습니다: \(name)")
             return
         }
-
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.numberOfLoops = loop ? -1 : 0
-            audioPlayer?.play()
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = loop ? -1 : 0
+            player?.play()
         } catch {
-            print("오디오 재생 실패: \(error)")
+            print("오디오 재생 실패: \(error.localizedDescription)")
         }
     }
 
-    /// Pause the currently playing sound.
+    /// Pause playback.
     func pause() {
-        audioPlayer?.pause()
+        player?.pause()
     }
 
-    /// Stop playing and release the audio player.
+    /// Resume playback after pause.
+    func resume() {
+        player?.play()
+    }
+
+    /// Stop playback completely.
     func stop() {
-        audioPlayer?.stop()
-        audioPlayer = nil
+        player?.stop()
+        player = nil
     }
 }
