@@ -33,7 +33,11 @@ class StatsViewModel: ObservableObject {
     @Published var averageSessionMinutes: Double = 0
     @Published var longestSessionMinutes: Int = 0
     @Published var weeklyStats: [String: Bool] = [:]
-    @Published var weeklyGoal: Int = UserDefaults.standard.integer(forKey: "weeklyGoal") {
+    /// Weekly meditation goal in days. Defaults to `3` when no value is stored.
+    @Published var weeklyGoal: Int = {
+        let stored = UserDefaults.standard.integer(forKey: "weeklyGoal")
+        return stored == 0 ? 3 : stored
+    }() {
         didSet { UserDefaults.standard.set(weeklyGoal, forKey: "weeklyGoal") }
     }
     @Published var hasError: Bool = false
