@@ -1,12 +1,10 @@
 import Foundation
-import AVFoundation
 
 class MeditationViewModel: ObservableObject {
     @Published var remainingSeconds: Int
     @Published var isMeditating: Bool = false
 
     private var timer: Timer?
-    private var audioPlayer: AVAudioPlayer?
 
     let durationMinutes: Int
     let music: String
@@ -30,19 +28,12 @@ class MeditationViewModel: ObservableObject {
             }
         }
 
-        if let url = Bundle.main.url(forResource: music, withExtension: "mp3") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            } catch {
-                print("오디오 재생 오류: \(error)")
-            }
-        }
+        AudioPlayerService.shared.play(music)
     }
 
     func endMeditation() {
         timer?.invalidate()
-        audioPlayer?.stop()
+        AudioPlayerService.shared.stop()
         isMeditating = false
     }
 
