@@ -10,6 +10,7 @@
 │   │   ├── JournalEntry.swift
 │   │   ├── MeditationSession.swift
 │   │   ├── Mood.swift
+│   │   ├── Quote.swift
 │   │   └── User.swift
 │   ├── Resources
 │   │   ├── Assets.xcassets
@@ -55,6 +56,7 @@
 │       ├── Components
 │       │   ├── MeditationProgressView.swift
 │       │   ├── MoodCardView.swift
+│       │   ├── DailyQuoteView.swift
 │       │   └── RoundedButton.swift
 │       ├── Home
 │       │   ├── ContentView.swift
@@ -100,4 +102,4 @@
 │   └── meditationUITestsLaunchTests.swift
 └── project_structure.txt
 
-45 directories, 60 files
+45 directories, 62 files
