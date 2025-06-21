@@ -19,4 +19,9 @@ struct Mood: Identifiable, Equatable, Hashable {
     static func mood(for id: String) -> Mood? {
         sampleMoods.first { $0.id == id }
     }
+
+    /// Looks up the mood identifier for a given display name.
+    static func id(forName name: String) -> String? {
+        sampleMoods.first { $0.name == name }?.id
+    }
 }

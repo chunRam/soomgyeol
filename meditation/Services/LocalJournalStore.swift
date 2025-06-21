@@ -28,7 +28,26 @@ class LocalJournalStore {
         guard let data = try? Data(contentsOf: entriesURL) else { return [] }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        return (try? decoder.decode([JournalEntry].self, from: data)) ?? []
+        let entries = (try? decoder.decode([JournalEntry].self, from: data)) ?? []
+
+        // Migrate legacy mood names to identifiers
+        var migrated = entries
+        var didMigrate = false
+        for i in migrated.indices {
+            if Mood.mood(for: migrated[i].mood) == nil,
+               let id = Mood.id(forName: migrated[i].mood) {
+                migrated[i] = JournalEntry(
+                    id: migrated[i].id,
+                    mood: id,
+                    text: migrated[i].text,
+                    durationMinutes: migrated[i].durationMinutes,
+                    date: migrated[i].date
+                )
+                didMigrate = true
+            }
+        }
+        if didMigrate { saveEntries(migrated) }
+        return migrated
     }
 
     func saveEntries(_ entries: [JournalEntry]) {

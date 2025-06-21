@@ -81,7 +81,7 @@ struct HistoryTabView: View {
     }
 
     private func addEntry() {
-        let mood = Mood.sampleMoods.first?.name ?? ""
+        let mood = Mood.sampleMoods.first?.id ?? ""
         let newEntry = JournalEntry(
             mood: mood,
             text: "",

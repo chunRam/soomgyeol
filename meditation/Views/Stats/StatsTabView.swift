@@ -39,12 +39,13 @@ struct StatsTabView: View {
                             .padding(.horizontal)
                     } else {
                         Chart {
-                            ForEach(viewModel.moodCount.sorted(by: { $0.key < $1.key }), id: \.key) { mood, count in
+                            ForEach(viewModel.moodCount.sorted(by: { $0.key < $1.key }), id: \.key) { moodId, count in
+                                let moodName = Mood.mood(for: moodId)?.name ?? moodId
                                 BarMark(
-                                    x: .value("감정", mood),
+                                    x: .value("감정", moodName),
                                     y: .value("횟수", count)
                                 )
-                                .foregroundStyle(by: .value("감정", mood))
+                                .foregroundStyle(by: .value("감정", moodName))
                             }
                         }
                         .frame(height: 200)
