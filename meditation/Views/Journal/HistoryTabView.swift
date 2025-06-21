@@ -30,9 +30,8 @@ struct HistoryTabView: View {
 
     var body: some View {
         ZStack {
-            Color(appState.currentMoodColor ?? "PastelMint")
+            Color("PastelMint")
                 .brightness(0.1)
-                .ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 12) {
@@ -103,11 +102,10 @@ struct HistoryTabView: View {
                 .padding(.top)
             }
             .background(
-                Color(appState.currentMoodColor ?? "PastelMint")
+                Color("PastelMint")
                     .brightness(-0.1)
             )
         }
-        .ignoresSafeArea(edges: .bottom)
         .searchable(text: $searchText, prompt: "검색")
         .navigationTitle("감정 일지")
         .toolbar {
@@ -123,6 +121,7 @@ struct HistoryTabView: View {
         .onDisappear {
             viewModel.removeListener()
         }
+        .background(Color.white.ignoresSafeArea())
     }
 
     private func addEntry() {
