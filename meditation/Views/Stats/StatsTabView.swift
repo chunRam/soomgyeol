@@ -37,7 +37,7 @@ struct StatsTabView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(
                     LinearGradient(
-                        colors: [Color("SoftBlue"), Color("DeepIndigo")],
+                        colors: [Color("PastelPink"), Color("PastelPurple")],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
