@@ -4,8 +4,9 @@ import FirebaseAuth
 
 class JournalViewModel: ObservableObject {
     @Published var entries: [JournalEntry] = []
-    
+
     private let db = Firestore.firestore()
+    private var listener: ListenerRegistration?
     
     // MARK: - 감정 일기 저장
     func saveJournal(mood: String, text: String, durationMinutes: Int, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -93,7 +94,7 @@ class JournalViewModel: ObservableObject {
     func fetchJournals() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
 
-        db.collection("users").document(userId)
+        listener = db.collection("users").document(userId)
             .collection("journals")
             .order(by: "date", descending: true)
             .addSnapshotListener { snapshot, error in
@@ -103,5 +104,10 @@ class JournalViewModel: ObservableObject {
                     }
                 }
             }
+    }
+
+    func removeListener() {
+        listener?.remove()
+        listener = nil
     }
 }

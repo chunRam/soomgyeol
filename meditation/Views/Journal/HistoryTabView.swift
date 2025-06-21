@@ -57,6 +57,9 @@ struct HistoryTabView: View {
         .onAppear {
             viewModel.fetchJournals()
         }
+        .onDisappear {
+            viewModel.removeListener()
+        }
     }
 
     private func addEntry() {
