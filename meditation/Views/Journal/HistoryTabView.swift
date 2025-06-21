@@ -136,3 +136,4 @@ struct HistoryTabView: View {
         appState.navigate(to: .journalEditor(entry: newEntry))
     }
 }
+}
