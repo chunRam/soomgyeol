@@ -4,11 +4,13 @@ struct MeditationStartView: View {
     let durationMinutes: Int
     let mood: Mood
     let music: String
-    let onFinish: (() -> Void)?
+    /// Called when the meditation finishes. Provides the elapsed duration in minutes.
+    let onFinish: ((Int) -> Void)?
 
     @State private var remainingSeconds: Int = 0
     @State private var timer: Timer?
     @State private var isPaused: Bool = false
+    @State private var startDate: Date?
 
     private var totalSeconds: Int {
         durationMinutes * 60
@@ -42,8 +44,9 @@ struct MeditationStartView: View {
                     }
 
                     Button("명상 종료") {
+                        let minutes = elapsedMinutes()
                         endMeditation()
-                        onFinish?()
+                        onFinish?(minutes)
                     }
                     .padding()
                     .background(Color.white.opacity(0.2))
@@ -59,6 +62,7 @@ struct MeditationStartView: View {
     private func startMeditation() {
         print("🧘‍♂️ 명상 시작 - duration: \(durationMinutes)분, 음악: \(music)")
         remainingSeconds = totalSeconds
+        startDate = Date()
         startTimer()
         AudioPlayerService.shared.play(name: music)
     }
@@ -68,7 +72,7 @@ struct MeditationStartView: View {
             remainingSeconds -= 1
             if remainingSeconds <= 0 {
                 endMeditation()
-                onFinish?()
+                onFinish?(elapsedMinutes())
             }
         }
     }
@@ -96,5 +100,14 @@ struct MeditationStartView: View {
     private func endMeditation() {
         timer?.invalidate()
         AudioPlayerService.shared.stop()
+    }
+
+    /// Calculates the elapsed meditation time in minutes, clamped to the
+    /// originally requested duration.
+    private func elapsedMinutes() -> Int {
+        guard let startDate else { return durationMinutes }
+        let elapsed = Date().timeIntervalSince(startDate)
+        let clamped = min(elapsed, Double(totalSeconds))
+        return Int(clamped / 60)
     }
 }
