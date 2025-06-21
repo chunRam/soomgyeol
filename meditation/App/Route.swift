@@ -2,6 +2,8 @@ import Foundation
 
 enum Route: Hashable {
     case launch
+    case login
+    case signup
     case home
     case content(Mood)
     case meditationSetup(Mood)

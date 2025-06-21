@@ -27,6 +27,12 @@ struct AppRootView: View {
         case .launch:
             LaunchView(navigate: appState.navigate)
 
+        case .login:
+            LoginView(navigate: appState.navigate)
+
+        case .signup:
+            SignupView(navigate: appState.navigate)
+
         case .home:
             MainTabView()
 

@@ -47,7 +47,7 @@ struct LoginView: View {
                 }
 
                 Button("회원가입") {
-                    navigate(.profile) // Placeholder: navigate to signup route
+                    navigate(.signup)
                 }
                 .foregroundColor(.gray)
             }
