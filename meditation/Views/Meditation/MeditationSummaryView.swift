@@ -66,7 +66,7 @@ struct MeditationSummaryView: View {
 
     private func saveEntry() {
         isSaving = true
-        journalViewModel.saveJournal(mood: mood.name, text: memo, durationMinutes: durationMinutes) { result in
+        journalViewModel.saveJournal(mood: mood.id, text: memo, durationMinutes: durationMinutes) { result in
             DispatchQueue.main.async {
                 isSaving = false
                 switch result {

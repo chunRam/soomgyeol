@@ -41,7 +41,18 @@ class StatsViewModel: ObservableObject {
                 let calendar = Calendar.current
 
                 for doc in documents {
-                    if let entry = try? doc.data(as: JournalEntry.self) {
+                    if var entry = try? doc.data(as: JournalEntry.self) {
+                        if Mood.mood(for: entry.mood) == nil,
+                           let id = Mood.id(forName: entry.mood) {
+                            entry = JournalEntry(
+                                id: entry.id,
+                                mood: id,
+                                text: entry.text,
+                                durationMinutes: entry.durationMinutes,
+                                date: entry.date
+                            )
+                            try? doc.reference.setData(from: entry)
+                        }
                         moodDict[entry.mood, default: 0] += 1
                         minutesSum += entry.durationMinutes
 

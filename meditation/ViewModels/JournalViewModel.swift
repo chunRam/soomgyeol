@@ -146,10 +146,27 @@ class JournalViewModel: ObservableObject {
             .order(by: "date", descending: true)
             .addSnapshotListener { snapshot, error in
                 if let documents = snapshot?.documents {
-                    self.entries = documents.compactMap { doc in
-                        try? doc.data(as: JournalEntry.self)
+                    var fetched: [JournalEntry] = []
+                    for doc in documents {
+                        if var entry = try? doc.data(as: JournalEntry.self) {
+                            if Mood.mood(for: entry.mood) == nil,
+                               let id = Mood.id(forName: entry.mood) {
+                                // migrate mood name to id
+                                entry = JournalEntry(
+                                    id: entry.id,
+                                    mood: id,
+                                    text: entry.text,
+                                    durationMinutes: entry.durationMinutes,
+                                    date: entry.date
+                                )
+                                // update remote document
+                                try? doc.reference.setData(from: entry)
+                            }
+                            fetched.append(entry)
+                        }
                     }
-                    self.store.saveEntries(self.entries)
+                    self.entries = fetched
+                    self.store.saveEntries(fetched)
                 }
             }
     }
@@ -182,13 +199,25 @@ class JournalViewModel: ObservableObject {
             switch action.type {
             case .add, .update:
                 do {
-                    let data = try Firestore.Encoder().encode(action.entry)
+                    var entry = action.entry
+                    if Mood.mood(for: entry.mood) == nil,
+                       let id = Mood.id(forName: entry.mood) {
+                        entry = JournalEntry(
+                            id: entry.id,
+                            mood: id,
+                            text: entry.text,
+                            durationMinutes: entry.durationMinutes,
+                            date: entry.date
+                        )
+                        store.updateEntry(entry)
+                    }
+                    let data = try Firestore.Encoder().encode(entry)
                     db.collection("users").document(userId)
                         .collection("journals")
-                        .document(action.entry.id)
+                        .document(entry.id)
                         .setData(data) { [weak self] error in
                             if error == nil {
-                                self?.store.removePendingAction(id: action.entry.id, type: action.type)
+                                self?.store.removePendingAction(id: entry.id, type: action.type)
                             }
                         }
                 } catch {
